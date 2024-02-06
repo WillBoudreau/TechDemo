@@ -12,11 +12,18 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]  private float jumpHeight = 3f;
     [SerializeField]  private Transform groundCheck;
     [SerializeField]  private GameObject Bullet;
+    public Vector3 StartPOS;
     public float groundDist = 0.4f;
     public LayerMask GroundMask;
     bool IsGrounded;
     Vector3 velocity;
     // Update is called once per frame
+    void Start()
+    {
+        StartPOS = transform.position;
+        CharacterCont = gameObject.GetComponent<CharacterController>();
+        Debug.Log(StartPOS);
+    }
     void Update()
     {
         IsGrounded = Physics.CheckSphere(groundCheck.position,groundDist,GroundMask);
@@ -59,16 +66,27 @@ public class PlayerMovementController : MonoBehaviour
         }
         //Kill box
         if(velocity.y <= -15)
-        {
-            velocity.y = 0;
+        {   
+            transform.position = StartPOS;
         }
-        void OnTriggerEnter(Collision collision)
+    }
+        void OnTriggerEnter(Collider other)
         {
             //Collectable pickup
-            if(collision.gameObject.CompareTag("Collectable"))
+            if(other.gameObject.CompareTag("Collectable"))
             {
                 Debug.Log("Hi");
             }
+            if(other.gameObject.CompareTag("Checkpoint"))
+            {
+                Debug.Log("Checkpoint!");
+                StartPOS = transform.position;
+                Debug.Log(StartPOS);
+            }
+            if(other.gameObject.CompareTag("Teleporter"))
+            {
+                Debug.Log("Teleporter");
+                transform.position += new Vector3(5f,0f,0f);
+            }
         }
-    }
 }
