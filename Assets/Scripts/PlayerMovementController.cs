@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]  private float jumpHeight = 3f;
     [SerializeField]  private Transform groundCheck;
     [SerializeField]  private GameObject Bullet;
+    [SerializeField]  private TextMeshProUGUI countText;
+    private int count;
     public Vector3 StartPOS;
     public float groundDist = 0.4f;
     public LayerMask GroundMask;
@@ -20,6 +23,7 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
+        count = 0;
         StartPOS = transform.position;
         CharacterCont = gameObject.GetComponent<CharacterController>();
         Debug.Log(StartPOS);
@@ -76,6 +80,8 @@ public class PlayerMovementController : MonoBehaviour
             if(other.gameObject.CompareTag("Collectable"))
             {
                 Debug.Log("Hi");
+                count++;
+                countText.text = "Collectables Collected: " + count.ToString();
             }
             if(other.gameObject.CompareTag("Checkpoint"))
             {
