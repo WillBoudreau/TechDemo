@@ -22,7 +22,13 @@ public class TeleporterBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Teleporter");
+            Player.SetActive(false);
             Player.transform.position = TeleEnd.transform.position;
+            Player.SetActive(true);
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        
     }
 }

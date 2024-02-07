@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -10,16 +11,15 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]  private float gravity = -9.81f;
     [SerializeField]  private int MinY = -15;
     [SerializeField]  private float jumpHeight = 1f;
-    [SerializeField]  private Vector3 positionY;
     [SerializeField]  private CharacterController CharacterCont;
     [SerializeField]  private Transform groundCheck;
-    [SerializeField]  private GameObject Bullet;
-    public GameObject Fire;
     public Vector3 StartPOS;
     public float groundDist = 0.4f;
     public LayerMask GroundMask;
     bool IsGrounded;
     Vector3 velocity;
+    int count = 0;
+    public TextMeshProUGUI countText;
     // Update is called once per frame
     void Start()
     {
@@ -88,5 +88,13 @@ public class PlayerMovementController : MonoBehaviour
                 StartPOS = transform.position;
                 Debug.Log(StartPOS);
             }
-        }
+            if (other.gameObject.CompareTag("Collectable"))
+            {
+                Debug.Log("Hi");
+                count++;
+                countText.text = "Collectables Collected: " + count.ToString();
+
+            }
+
+        }   
 }
