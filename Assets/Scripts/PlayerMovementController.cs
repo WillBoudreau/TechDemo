@@ -5,17 +5,16 @@ using TMPro;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [Header("Player Values")]
     [SerializeField]  private float speed = 12f;
     [SerializeField]  private float gravity = -9.81f;
     [SerializeField]  private int MinY = -15;
+    [SerializeField]  private float jumpHeight = 1f;
     [SerializeField]  private Vector3 positionY;
     [SerializeField]  private CharacterController CharacterCont;
-    [SerializeField]  private float jumpHeight = 3f;
     [SerializeField]  private Transform groundCheck;
     [SerializeField]  private GameObject Bullet;
-    [SerializeField]  private TextMeshProUGUI countText;
     public GameObject Fire;
-    private int count;
     public Vector3 StartPOS;
     public float groundDist = 0.4f;
     public LayerMask GroundMask;
@@ -24,7 +23,6 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        count = 0;
         StartPOS = transform.position;
         CharacterCont = gameObject.GetComponent<CharacterController>();
         Debug.Log(StartPOS);
@@ -84,23 +82,11 @@ public class PlayerMovementController : MonoBehaviour
         //Triggers
         void OnTriggerEnter(Collider other)
         {
-            //Collectable pickup
-            if(other.gameObject.CompareTag("Collectable"))
-            {
-                Debug.Log("Hi");
-                count++;
-                countText.text = "Collectables Collected: " + count.ToString();
-            }
             if(other.gameObject.CompareTag("Checkpoint"))
             {
                 Debug.Log("Checkpoint!");
                 StartPOS = transform.position;
                 Debug.Log(StartPOS);
-            }
-            if(other.gameObject.CompareTag("Teleporter"))
-            {
-                Debug.Log("Teleporter");
-                transform.position += new Vector3(5f,0f,0f);
             }
         }
 }
