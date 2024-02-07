@@ -14,6 +14,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]  private Transform groundCheck;
     [SerializeField]  private GameObject Bullet;
     [SerializeField]  private TextMeshProUGUI countText;
+    public GameObject Fire;
     private int count;
     public Vector3 StartPOS;
     public float groundDist = 0.4f;
@@ -30,6 +31,7 @@ public class PlayerMovementController : MonoBehaviour
     }
     void Update()
     {
+        //Movement
         IsGrounded = Physics.CheckSphere(groundCheck.position,groundDist,GroundMask);
 
         if(IsGrounded && velocity.y < 0)
@@ -47,6 +49,8 @@ public class PlayerMovementController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         CharacterCont.Move(velocity * Time.deltaTime * speed);
+
+        //Keybinds
         //Jump if spacebar is pressed
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
@@ -55,8 +59,7 @@ public class PlayerMovementController : MonoBehaviour
         //Fire bullets
         if(Input.GetMouseButtonDown(0))
         {
-           Instantiate(Bullet,transform.position,transform.rotation);
-           Destroy(Bullet,5f);
+           //Instantiate(Bullet,Fire.position,Fire.rotation);
         }
         //Crounch
         if(Input.GetKeyDown(KeyCode.C))
@@ -68,12 +71,17 @@ public class PlayerMovementController : MonoBehaviour
         {
             Time.timeScale = 0.0f;
         }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("Gravity off");
+        }
         //Kill box
         if(velocity.y <= -15)
         {   
             transform.position = StartPOS;
         }
     }
+        //Triggers
         void OnTriggerEnter(Collider other)
         {
             //Collectable pickup
