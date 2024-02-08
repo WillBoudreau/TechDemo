@@ -5,11 +5,14 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour
 {
     float MaxY = 15;
+    float time = 5;
     public GameObject door;
+    public Transform top;
+    public Transform bottom;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -19,6 +22,6 @@ public class DoorManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        door.transform.position = new Vector3(0,MaxY,0);
+        door.transform.position = Vector3.Lerp(bottom.position,top.position,time);
     }
 }
