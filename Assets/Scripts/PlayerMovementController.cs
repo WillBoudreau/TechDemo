@@ -59,19 +59,10 @@ public class PlayerMovementController : MonoBehaviour
         {
            //Instantiate(Bullet,Fire.position,Fire.rotation);
         }
-        //Crounch
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            Debug.Log("Crouch");
-        }
         //Pause
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0.0f;
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("Gravity off");
         }
         //Kill box
         if(velocity.y <= -15)

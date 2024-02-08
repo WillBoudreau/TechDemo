@@ -6,6 +6,7 @@ public class TeleporterBehaviour : MonoBehaviour
 {
     public GameObject TeleEnd;
     public GameObject Player;
+    bool IsTeleporting = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,16 +20,17 @@ public class TeleporterBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (IsTeleporting == false && other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Teleporter");
-            Player.SetActive(false);
-            Player.transform.position = TeleEnd.transform.position;
-            Player.SetActive(true);
+            StartCoroutine(Teleport());
         }
     }
-    private void OnTriggerExit(Collider other)
+    IEnumerator Teleport()
     {
-        
+        IsTeleporting = true;
+        yield return new WaitForSeconds(1f);
+        Player.transform.position = TeleEnd.transform.position;
+        yield return new WaitForSeconds(5f);
+        IsTeleporting = false;
     }
 }
