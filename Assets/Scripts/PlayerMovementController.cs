@@ -52,7 +52,7 @@ public class PlayerMovementController : MonoBehaviour
         //Jump if spacebar is pressed
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight* -1* gravity);
         }
         //Fire bullets
         if(Input.GetMouseButtonDown(0))
