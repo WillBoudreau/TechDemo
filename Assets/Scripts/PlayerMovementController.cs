@@ -58,12 +58,17 @@ public class PlayerMovementController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight* -1* gravity);
         }
-        //Fire bullets
         //Pause
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0.0f;
             PauseMenu.SetActive(true);
+        }
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            Time.timeScale = 1.0f;
+            Cursor.lockState = CursorLockMode.Locked;
+            PauseMenu.SetActive(false);
         }
         //Kill box
         if(velocity.y <= -15)
