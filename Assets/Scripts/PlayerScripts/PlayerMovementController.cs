@@ -8,7 +8,6 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Player Values")]
     [SerializeField]  private float speed = 12f;
     [SerializeField]  private float gravity = -9.81f;
-    [SerializeField]  private int MinY = -15;
     [SerializeField]  private float jumpHeight = 1f;
     [SerializeField]  private CharacterController CharacterCont;
     [SerializeField]  private Transform groundCheck;
@@ -57,7 +56,7 @@ public class PlayerMovementController : MonoBehaviour
         //Jump if spacebar is pressed
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight* -1* gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight* -0.25f* gravity);
         }
         //Pause
         if(Input.GetKeyDown(KeyCode.Escape))
