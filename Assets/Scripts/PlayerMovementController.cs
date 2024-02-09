@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -17,12 +16,17 @@ public class PlayerMovementController : MonoBehaviour
     public float groundDist = 0.4f;
     public LayerMask GroundMask;
     bool IsGrounded;
+    bool IsPaused;
     Vector3 velocity;
     int count = 0;
+    [Header("UI")]
     public TextMeshProUGUI countText;
+    public GameObject PauseMenu;
     // Update is called once per frame
     void Start()
     {
+        IsPaused=false;
+        PauseMenu.SetActive(false);
         StartPOS = transform.position;
         CharacterCont = gameObject.GetComponent<CharacterController>();
         Debug.Log(StartPOS);
@@ -55,14 +59,11 @@ public class PlayerMovementController : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight* -1* gravity);
         }
         //Fire bullets
-        if(Input.GetMouseButtonDown(0))
-        {
-           //Instantiate(Bullet,Fire.position,Fire.rotation);
-        }
         //Pause
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0.0f;
+            PauseMenu.SetActive(true);
         }
         //Kill box
         if(velocity.y <= -15)
@@ -84,8 +85,7 @@ public class PlayerMovementController : MonoBehaviour
                 Debug.Log("Hi");
                 count++;
                 countText.text = "Collectables Collected: " + count.ToString();
-
             }
-
-        }   
+        }
+        
 }

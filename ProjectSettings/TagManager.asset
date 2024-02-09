@@ -7,6 +7,7 @@ TagManager:
   - Collectable
   - Checkpoint
   - Teleporter
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

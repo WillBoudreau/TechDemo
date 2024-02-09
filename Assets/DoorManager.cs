@@ -4,24 +4,41 @@ using UnityEngine;
 
 public class DoorManager : MonoBehaviour
 {
-    float MaxY = 15;
-    float time = 5;
-    public GameObject door;
-    public Transform top;
-    public Transform bottom;
+    public Transform Door;
+    public float Speed = 15f;
+    public Transform StartPOS;
+    public Transform EndPOS;
+    public bool IsOpening;
     // Start is called before the first frame update
     void Start()
     {
-
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(IsOpening == true)
+        {
+            Door.transform.position = Vector3.MoveTowards(Door.position,EndPOS.position,(Time.deltaTime * Speed));
+        }
+        if(IsOpening == false)
+        {
+            Door.transform.position = Vector3.MoveTowards(Door.position,StartPOS.position,(Time.deltaTime * Speed));
+        }
     }
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        door.transform.position = Vector3.Lerp(bottom.position,top.position,time);
+       if(other.gameObject.CompareTag("Player"))
+       {
+            IsOpening = true;
+       } 
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            IsOpening = false;
+        }
     }
 }
