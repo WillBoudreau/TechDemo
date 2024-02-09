@@ -6,7 +6,6 @@ public class PlatfromController : MonoBehaviour
 {
     public Transform StartPOS;
     public Transform EndPOS;
-    public GameObject Platform;
     public float Speed = 1;
     public float time = 5;
     // Start is called before the first frame update
@@ -22,18 +21,19 @@ public class PlatfromController : MonoBehaviour
         //Debug.Log("Start: "+StartPOS.position.z);
         //Debug.Log("End: "+EndPOS.position.z);
     }
-    void OnTriggerEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Platform");
         if(other.gameObject.CompareTag("Player"))
         {
-           transform.parent = other.transform; 
+           other.transform.parent = transform;
         }
     }
     void OnTriggerExit(Collider other)
         {
-            if(other.gameObject.CompareTag("MovingPlatform"))
+            if(other.gameObject.CompareTag("Player"))
             {
-                transform.parent = null;
+                other.transform.parent = null;
             }
         }   
 }
