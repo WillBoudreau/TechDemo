@@ -9,6 +9,7 @@ public class CheckpointBehaviour : MonoBehaviour
     void Start()
     {
         myMaterial= GetComponent<Renderer>();
+        myMaterial.material.color = Color.blue;
     }
 
     // Update is called once per frame
@@ -23,18 +24,11 @@ public class CheckpointBehaviour : MonoBehaviour
             myMaterial.material.color = Color.red;
         }
     }
-    void OnTriggerStay(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            myMaterial.material.color = Color.green;
-        }
-    }
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            myMaterial.material.color = Color.white;
+            myMaterial.material.color = Color.green;
         }
     }
 }
